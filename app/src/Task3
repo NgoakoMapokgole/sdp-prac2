@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+class Item {
+    char value;
+    Item next;
+
+    Item(char value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+class listed {
+    private Item head;
+    private int count;
+
+    public listed() {
+        this.head = null;
+        this.count = 0;
+    }
+
+    public void push(char value) {
+        Item newItem = new Item(value);
+        newItem.next = head;
+        head = newItem;
+        count++;
+    }
+
+    public char pop() {
+        if (head == null) {
+            return 'N';
+        }
+        char value = head.value;
+        head = head.next;
+        count--;
+        return value;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    public int length() {
+        return count;
+    }
+}
+
+public class Task3 {
+    public static void main(String[] args) {
+        listed WorkAnswer = new listed();
+        Scanner Reader = new Scanner(System.in);
+        String word = Reader.next();
+        Reader.close(); // Close the scanner to prevent resource leak
+
+        for (int i = 0; i < word.length(); i++) {
+            WorkAnswer.push(word.charAt(i));
+        }
+
+        int Open = 0;
+        int Close = 0;
+
+        while (!WorkAnswer.isEmpty()) {
+            char ch = WorkAnswer.pop();
+            if (ch == '(') {
+                Open++;
+            } else if (ch == ')') {
+                Close++;
+            } else {
+                System.out.println("Not within scope of problem");
+                break;
+            }
+        }
+
+        System.out.println("Open brackets: " + Open);
+        System.out.println("Close brackets: " + Close);
+        System.out.println("Balanced: " + (Close == Open));
+    }
+}
