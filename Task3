@@ -1,0 +1,79 @@
+import java.util.Scanner;
+
+class Item {
+    char value;
+    Item next;
+    
+
+    Item(char value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+class listed {
+    private Item head;
+    private int count;
+
+    public listed() {
+        this.head = null;
+        this.count=0;
+    }
+
+    public void push(char value) {
+        Item newItem = new Item(value);
+        newItem.next = head;
+        head = newItem;
+        count= count+1;
+    }
+
+    public char pop() {
+        if (head == null) {
+            return 'N';
+        }
+        char value = head.value;
+        head = head.next;
+        count= count-1;
+        return value;
+    }
+    public char check(){
+        if (head == null) {
+            return 'N';
+        }else{
+      char value = head.value;
+      return value;
+    }}
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    public int length(){
+        return count;
+    }
+}
+public class Task3{
+public static void main(String[] args){
+  int Open=0;
+  int Close=0;
+  listed WorkAnswer=new listed();
+  Scanner Reader=new Scanner(System.in);
+  String word=Reader.next();
+  for (int i=0;i<word.length();i=i+1){
+    WorkAnswer.push((word.charAt(i)));
+  }
+  while (WorkAnswer.check()!='N'){
+    if (WorkAnswer.pop()=='('){
+      Open=Open+1;
+    }
+    else if(WorkAnswer.pop()==')'){
+      Close=Close+1;
+    }
+    else
+    {System.out.println("Not within scope of problem");
+         break;}
+    
+  }
+  System.out.println(Close==Open);
+}
+}
